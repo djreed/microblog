@@ -15,8 +15,8 @@ use Mix.Config
 # which you typically run after static files are built.
 config :microblog, MicroblogWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "localhost", port: {:system, "PORT"}], # This is critical for ensuring web-sockets properly authorize.
-cache_static_manifest: "priv/static/manifest.json",
+  url: [host: "localhost", port: {:system, "PORT"}],
+  cache_static_manifest: "priv/static/manifest.json",
   server: true,
   root: ".",
   version: Application.spec(:microblog, :vsn)
