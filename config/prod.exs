@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :microblog, MicroblogWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "example.com", port: 80],
+  url: [host: "microblog.davidjreed.net", port: 8000],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
