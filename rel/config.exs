@@ -53,4 +53,3 @@ release :microblog do
     "migrate": "rel/commands/migrate.sh"
   ]
 end
-
