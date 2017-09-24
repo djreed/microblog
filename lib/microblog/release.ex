@@ -8,17 +8,17 @@ defmodule Microblog.ReleaseTasks do
   ]
 
   @myapps [
-    :myapp
+    :microblog
   ]
 
   @repos [
-    MyApp.Repo
+    Microblog.Repo
   ]
 
   def seed do
-    IO.puts "Loading myapp.."
+    IO.puts "Loading microblog.."
     # Load the code for myapp, but don't start it
-    :ok = Application.load(:myapp)
+    :ok = Application.load(:microblog)
 
     IO.puts "Starting dependencies.."
     # Start apps necessary for executing migrations
@@ -32,7 +32,7 @@ defmodule Microblog.ReleaseTasks do
     Enum.each(@myapps, &run_migrations_for/1)
 
     # Run the seed script if it exists
-    seed_script = Path.join([priv_dir(:myapp), "repo", "seeds.exs"])
+    seed_script = Path.join([priv_dir(:microblog), "repo", "seeds.exs"])
     if File.exists?(seed_script) do
       IO.puts "Running seed script.."
       Code.eval_file(seed_script)
@@ -47,7 +47,7 @@ defmodule Microblog.ReleaseTasks do
 
   defp run_migrations_for(app) do
     IO.puts "Running migrations for #{app}"
-    Ecto.Migrator.run(MyApp.Repo, migrations_path(app), :up, all: true)
+    Ecto.Migrator.run(Microblog.Repo, migrations_path(app), :up, all: true)
   end
 
   defp migrations_path(app), do: Path.join([priv_dir(app), "repo", "migrations"])
