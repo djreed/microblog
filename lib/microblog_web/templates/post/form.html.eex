@@ -6,21 +6,9 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :content, class: "control-label" %>
-    <%= textarea f, :content, class: "form-control" %>
+    <%= textarea f, :content, class: "form-control", rows: 6 %>
     <%= error_tag f, :content %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :author, class: "control-label" %>
-    <%= text_input f, :author, class: "form-control" %>
-    <%= error_tag f, :author %>
   </div>
 
   <div class="form-group">

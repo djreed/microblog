@@ -1,0 +1,40 @@
+<h2>Listing Users</h2>
+
+<div class="col-md-12">
+    <div class="row">
+        <%= for user <- @users do %>
+            <div class="card m-2">
+                <div class="card-header">
+                    <h4 class="card-title"><%= user.name %></h4>
+                    <h6 class="card-subtitle">(@<%= user.handle %>)</h6></br>
+                </div>
+                <div class="card-block">
+                    <div class="row m-3">
+                        <span class="m-1">
+                            <%= button("Show", to: user_path(@conn, :show, user),
+                                method: :get,
+                                class: "btn btn-outline-primary") %>
+                        </span>
+                        <span class="m-1">
+                            <%= button("Edit", to: user_path(@conn, :edit, user),
+                                method: :get,
+                                class: "btn btn-outline-primary") %>
+                        </span>
+                        <span class="m-1">
+                            <%= button("Delete", to: user_path(@conn, :delete, user),
+                                data: [confirm: "Are you sure?"],
+                                method: :delete,
+                                class: "btn btn-danger") %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<span>
+    <%= button("New User", to: user_path(@conn, :new),
+        method: :get,
+        class: "btn btn-primary") %>
+</span>

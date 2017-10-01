@@ -1,0 +1,66 @@
+<div class="row my-2">
+    <div class="col-md-4">
+        <%= if @current_user != nil do %> <!-- Profile preview -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="card-title mb-2"><%= @current_user.name %></h4>
+                            <h5 class="card-subtitle">@<%= @current_user.handle %></h5>
+                        </div>
+                        <div class="col-md-4">
+                            <%= if @current_user do %>
+                                <span>
+                                    <%= button("Edit", to: user_path(@conn, :edit, @current_user),
+                                        method: :get,
+                                        class: "btn btn-outline-primary m-1") %>
+                                </span>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <span><%= @current_user.description %></span>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="col-md-7">
+        <h2 class="m-2">Followed Users' Posts</h2>
+        <%= for post <- @posts do %>
+            <div class="card m-2 mb-4 card-outline-primary">
+                <div class="card-header">
+                    <span class="card-title"><%= post.author.name %></span>
+                    <span class="card-subtitle">(@<%= post.author.handle %>)</span>
+                </div>
+                <div class="card-block">
+                    <div class="row m-2">
+                        <p class="card-text col-md-9 my-2">
+                            <%= post.content %>
+                        </p>
+                        <%= if @current_user && @current_user.id == post.author.id do %>
+                            <%= button("Edit", to: user_path(@conn, :edit, post),
+                                method: :get,
+                                class: "btn btn-outline-primary m-1") %>
+
+                            <%= button("Delete", to: user_path(@conn, :delete, post),
+                                data: [confirm: "Are you sure?"],
+                                method: :delete,
+                                class: "btn btn-outline-danger m-1") %>
+
+                        <% else %>
+                            <%= button("View User", to: user_path(@conn, :show, post.author),
+                                method: :get,
+                                class: "btn btn-outline-primary m-1") %>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    Posted: <%= post.updated_at %></br>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<h2>Edit Post</h2>
+
+<div class="row md-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-2">
+                    <%= @current_user.name %>
+                </h4>
+                <h5 class="card-subtitle">
+                    @<%= @current_user.handle %>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <span><%= @current_user.email %></span></br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <%= render "form.html", Map.put(assigns, :action, post_path(@conn, :update, @post)) %>
+    </div>
+</div>
+<span><%= link "Back", to: post_path(@conn, :index) %></span>

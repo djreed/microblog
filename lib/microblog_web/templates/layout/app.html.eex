@@ -1,35 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Hello Microblog!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
+        <title>Chirp</title>
+        <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    </head>
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
+    <body class="mb-4">
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-expand-md bottom-border">
+            <h1 class="navbar-brand ml-2 mr-4 my-0">Chirp</h1>
+            <button class="navbar-toggler navbar-right" type="button" data-toggle="collapse" data-target="#main-navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="main-navbar">
+
+                <!-- User nav -->
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <%= if @current_user do %>
+                            <%= link("Home", to: follow_path(@conn, :index),
+                                class: "btn btn-outline-primary mx-2") %>
+                        <% else %>
+                            <%= link("Home", to: post_path(@conn, :index),
+                                class: "btn btn-outline-primary mx-2") %>
+                        <% end %>
+                    </li>
+                    <%= if @current_user do %>
+                        <li class="nav-item active">
+                            <%= link("My Profile", to: user_path(@conn, :show, @current_user),
+                                class: "btn btn-outline-primary mx-2") %>
+                        </li>
+                    <% end %>
+                    <li class="nav-item active">
+                        <%= link("New Post", to: post_path(@conn, :new),
+                            class: "btn btn-outline-primary mx-2") %>
+                    </li>
+                </ul>
+
+                <!-- App (Index) nav -->
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <%= link("All Posts", to: post_path(@conn, :index),
+                            class: "btn btn-outline-secondary mx-2") %>
+                    </li>
+                    <li class="nav-item active">
+                        <%= link("Users", to: user_path(@conn, :index),
+                            class: "btn btn-outline-secondary mx-2") %>
+                    </li>
+                </ul>
+
+                <%= if @current_user do %>
+                    <span>
+                        <!-- <%= @current_user.name %> |-->
+                    </span>
+                    <%= button("Log Out", to: session_path(@conn, :logout),
+                        method: :delete,
+                        class: "btn btn-danger mx-2") %>
+                <% else %>
+                    <%= form_for @conn, session_path(@conn, :login),
+                    [as: "user", class: " form-inline mx-2"], fn f -> %>
+                    <input type="text" placeholder="email or handle"
+                           class="form-control" name="login">
+                    <input type="submit" value="Log in" class="btn btn-primary mx-2">
+                <% end %>
+        <% end %>
+            </div>
         </nav>
-        <span class="logo"></span>
-      </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <div class="container my-3">
+            <%= if get_flash(@conn, :info) do %>
+                <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+            <% end %>
+            <%= if get_flash(@conn, :error) do %>
+                <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+            <% end %>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+            <main>
+                <%= render @view_module, @view_template, assigns %>
+            </main>
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-  </body>
+        </div> <!-- /container -->
+        <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    </body>
 </html>

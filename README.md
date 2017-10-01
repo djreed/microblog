@@ -1,7 +1,16 @@
 # Microblog
 
-Git repo: https://github.com/djreed/cs4550/tree/master/microblog
+Git repo: [github.com/djreed/cs4550/microblog](https://github.com/djreed/cs4550/tree/master/microblog)
 
-Deployed app: [microblog](http://microblog.davidjreed.net/messages)
+Deployed app: [microblog](http://microblog.davidjreed.net/)
 
-( Link is directly to the messages resource, [microblog.davidjreed.net](http://microblog.davidjreed.net) is valid but empty, as it is the default Phoenix app start page )
+ - Users
+   - Email
+   - Name
+ - Follow
+   - User being followed
+   - User following
+ - Message/Post
+   - Title
+   - Text
+   - User who posted/wrote
