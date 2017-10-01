@@ -1,4 +1,4 @@
-defmodule Microblog.Repo.Migrations.CreatePosts do
+defmodule Microblog.Repo.Migrations.Posts do
   use Ecto.Migration
 
   def change do
