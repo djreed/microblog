@@ -4,7 +4,7 @@ defmodule Microblog.Repo.Migrations.Posts do
   def change do
     create table(:posts) do
       add :content, :text
-      add :user_id, references(:users, on_delete: :delete_all)
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end
