@@ -28,7 +28,10 @@
         <% end %>
     </div>
     <div class="col-md-7">
-        <h2 class="m-2">Followed Users' Posts</h2>
+        <h2>Followed Users' Posts</h2>
+        <%= if @posts == nil || @posts == [] do %>
+            <h6>No posts found from users followed</h6>
+        <% end %>
         <%= for post <- @posts do %>
             <div class="card m-2 mb-4 card-outline-primary">
                 <div class="card-header">
