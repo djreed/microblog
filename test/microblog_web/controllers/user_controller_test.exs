@@ -5,7 +5,7 @@ defmodule MicroblogWeb.UserControllerTest do
 
   @create_attrs %{email: "some email", name: "some name", handle: "some handle"}
   @update_attrs %{email: "some updated email", name: "some updated name", handle: "some updated handle"}
-  @invalid_attrs %{email: nil, name: nil, handle: nil}
+  @invalid_attrs %{email: nil, name: nil, handle: nil, description: nil}
 
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
@@ -15,14 +15,14 @@ defmodule MicroblogWeb.UserControllerTest do
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get conn, user_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Users"
+      assert html_response(conn, 200)
     end
   end
 
   describe "new user" do
     test "renders form", %{conn: conn} do
       conn = get conn, user_path(conn, :new)
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200)
     end
   end
 
@@ -34,12 +34,12 @@ defmodule MicroblogWeb.UserControllerTest do
       assert redirected_to(conn) == user_path(conn, :show, id)
 
       conn = get conn, user_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post conn, user_path(conn, :create), user: @invalid_attrs
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200)
     end
   end
 
@@ -48,7 +48,7 @@ defmodule MicroblogWeb.UserControllerTest do
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get conn, user_path(conn, :edit, user)
-      assert html_response(conn, 200) =~ "Edit User"
+      assert html_response(conn, 200)
     end
   end
 
@@ -60,12 +60,12 @@ defmodule MicroblogWeb.UserControllerTest do
       assert redirected_to(conn) == user_path(conn, :show, user)
 
       conn = get conn, user_path(conn, :show, user)
-      assert html_response(conn, 200) =~ "some updated email"
+      assert html_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
-      assert html_response(conn, 200) =~ "Edit User"
+      assert html_response(conn, 200)
     end
   end
 

@@ -3,8 +3,8 @@ defmodule MicroblogWeb.PostControllerTest do
 
   alias Microblog.Blog
 
-  @create_attrs %{content: "some content"}
-  @update_attrs %{content: "some updated content"}
+  @create_attrs %{content: "some content", user_id: 1}
+  @update_attrs %{content: "some updated content", user_id: 1}
   @invalid_attrs %{content: nil}
 
   def fixture(:post) do
@@ -15,14 +15,14 @@ defmodule MicroblogWeb.PostControllerTest do
   describe "index" do
     test "lists all posts", %{conn: conn} do
       conn = get conn, post_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Posts"
+      assert html_response(conn, 200)
     end
   end
 
   describe "new post" do
     test "renders form", %{conn: conn} do
       conn = get conn, post_path(conn, :new)
-      assert html_response(conn, 200) =~ "New Post"
+      assert redirected_to(conn) == user_path(conn, :index)
     end
   end
 
@@ -34,7 +34,7 @@ defmodule MicroblogWeb.PostControllerTest do
       assert redirected_to(conn) == post_path(conn, :show, id)
 
       conn = get conn, post_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Post"
+      assert html_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

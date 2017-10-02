@@ -6,9 +6,9 @@ defmodule Microblog.AccountsTest do
   describe "users" do
     alias Microblog.Accounts.User
 
-    @valid_attrs %{email: "some email", name: "some name", handle: "some handle"}
-    @update_attrs %{email: "some updated email", name: "some updated name", handle: "some updated handle"}
-    @invalid_attrs %{email: nil, name: nil, handle: nil}
+    @valid_attrs %{email: "some email", name: "some name", handle: "some handle", description: "some desc"}
+    @update_attrs %{email: "some updated email", name: "some updated name", handle: "some updated handle", description: "some updated desc"}
+    @invalid_attrs %{email: nil, name: nil, handle: nil, description: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =

@@ -8,7 +8,7 @@ defmodule Microblog.BlogTest do
 
     @valid_attrs %{content: "some content"}
     @update_attrs %{content: "some updated content"}
-    @invalid_attrs %{content: nil}
+    @invalid_attrs %{content: nil, user_id: nil}
 
     def post_fixture(attrs \\ %{}) do
       {:ok, post} =
