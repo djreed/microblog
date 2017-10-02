@@ -5,6 +5,7 @@ defmodule Microblog.Blog do
 
   import Ecto.Query, warn: false
   alias Microblog.Repo
+  alias Microblog.Accounts.User
   alias Microblog.Blog.Post
   alias Microblog.Blog.Follow
 
@@ -142,16 +143,20 @@ defmodule Microblog.Blog do
   end
 
   @doc """
-  Returns the list of follows.
+  Returns all followed Users
 
   ## Examples
 
-  iex> list_follows()
-  [%Follow{}, ...]
+  iex> get_followed_users_for_id(1)
+  [%User{}]
 
   """
-  def get_follows_for_id(id) do
-    Repo.get_by(Follow, user_id: id)
+  def get_followed_users_for_id(id) do
+    query = from u in User,
+      join: f in Follow,
+      on: f.user_id == ^id and f.follow_id == u.id,
+      select: u
+    Repo.all(query)
   end
 
   @doc """

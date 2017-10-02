@@ -21,42 +21,27 @@
 
                 <!-- User nav -->
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <%= if @current_user do %>
-                            <%= link("Home", to: follow_path(@conn, :index),
-                                class: "btn btn-outline-primary mx-2") %>
-                        <% else %>
-                            <%= link("Home", to: post_path(@conn, :index),
-                                class: "btn btn-outline-primary mx-2") %>
-                        <% end %>
-                    </li>
                     <%= if @current_user do %>
-                        <li class="nav-item active">
-                            <%= link("My Profile", to: user_path(@conn, :show, @current_user),
-                                class: "btn btn-outline-primary mx-2") %>
-                        </li>
-                    <% end %>
-                    <li class="nav-item active">
-                        <%= link("New Post", to: post_path(@conn, :new),
+                        <%= link("Home", to: follow_path(@conn, :index),
                             class: "btn btn-outline-primary mx-2") %>
-                    </li>
+                    <% end %>
+                    <%= if @current_user do %>
+                        <%= link("My Profile", to: user_path(@conn, :show, @current_user),
+                            class: "btn btn-outline-primary mx-2") %>
+                    <% end %>
+                    <%= link("New Post", to: post_path(@conn, :new),
+                        class: "btn btn-outline-primary mx-2") %>
                 </ul>
 
                 <!-- App (Index) nav -->
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <%= link("Posts", to: post_path(@conn, :index),
-                            class: "btn btn-outline-secondary mx-2") %>
-                    </li>
-                    <li class="nav-item active">
-                        <%= link("Users", to: user_path(@conn, :index),
-                            class: "btn btn-outline-secondary mx-2") %>
-                    </li>
+                    <%= link("Posts", to: post_path(@conn, :index),
+                        class: "btn btn-outline-secondary mx-2") %>
+                    <%= link("Users", to: user_path(@conn, :index),
+                        class: "btn btn-outline-secondary mx-2") %>
                     <%= if @current_user do %>
-                        <li class="nav-item active">
-                            <%= link("Follows", to: follow_path(@conn, :index),
-                                class: "btn btn-outline-secondary mx-2") %>
-                        </li>
+                        <%= link("Followed Users", to: follow_path(@conn, :show, @current_user),
+                            class: "btn btn-outline-secondary mx-2") %>
                     <% end %>
                 </ul>
 

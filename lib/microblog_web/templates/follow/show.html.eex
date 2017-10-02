@@ -1,0 +1,24 @@
+<h2> <%= @user.name%> (@<%= @user.handle %>)'s Followed Users</h2>
+
+<div class="col-md-12">
+    <div class="row">
+        <%= if @follows == nil || @follows == [] do %>
+	    <h3>No follows found for this user</h3>
+        <% end %>
+        <%= for user <- @follows do %>
+            <div class="card m-2">
+                <div class="card-header">
+                    <h4 class="card-title"><%= user.name %></h4>
+                    <h6 class="card-subtitle">(@<%= user.handle %>)</h6>
+                </div>
+                <div class="card-block">
+                    <div class="row m-3">
+                        <%= button("Show", to: user_path(@conn, :show, user),
+                            method: :get,
+                            class: "btn btn-outline-primary m-1") %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -13,6 +13,8 @@ defmodule MicroblogWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_user
   end
 
   scope "/", MicroblogWeb do
@@ -26,6 +28,7 @@ defmodule MicroblogWeb.Router do
 
     post "/follows", FollowController, :follow
     get "/follows", FollowController, :index
+    get "/follows/:id", FollowController, :show
     delete "/follows", FollowController, :unfollow
 
     post "/sessions", SessionController, :login

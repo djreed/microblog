@@ -33,8 +33,11 @@ defmodule MicroblogWeb.UserController do
 
     user_id = get_session(conn, :user_id)
 
+    follow =
     if user_id do
-      follow = Blog.get_follow(user_id, user.id)
+      Blog.get_follow(user_id, user.id)
+    else
+      nil
     end
 
     render(conn, "show.html",

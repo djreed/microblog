@@ -50,7 +50,7 @@ defmodule MicroblogWeb.PostController do
     post = Blog.get_post!(id)
 
     case Blog.update_post(post, post_params) do
-      {:ok, post} ->
+      {:ok, _post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
         |> redirect(to: post_path(conn, :index))
