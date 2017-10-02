@@ -1,11 +1,8 @@
 defmodule MicroblogWeb.PostController do
   use MicroblogWeb, :controller
 
-  alias Microblog.Repo
   alias Microblog.Blog
-  alias Microblog.Blog.Follow
   alias Microblog.Blog.Post
-  alias Microblog.Accounts
 
   def index(conn, _params) do
     posts = Blog.list_posts()

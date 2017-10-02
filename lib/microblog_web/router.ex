@@ -22,7 +22,7 @@ defmodule MicroblogWeb.Router do
 
     resources "/users", UserController
 
-    resources "/posts", PostController
+    resources "/posts", PostController, except: [:show]
 
     post "/follows", FollowController, :follow
     get "/follows", FollowController, :index

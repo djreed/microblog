@@ -45,13 +45,19 @@
                 <!-- App (Index) nav -->
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <%= link("All Posts", to: post_path(@conn, :index),
+                        <%= link("Posts", to: post_path(@conn, :index),
                             class: "btn btn-outline-secondary mx-2") %>
                     </li>
                     <li class="nav-item active">
                         <%= link("Users", to: user_path(@conn, :index),
                             class: "btn btn-outline-secondary mx-2") %>
                     </li>
+                    <%= if @current_user do %>
+                        <li class="nav-item active">
+                            <%= link("Follows", to: follow_path(@conn, :index),
+                                class: "btn btn-outline-secondary mx-2") %>
+                        </li>
+                    <% end %>
                 </ul>
 
                 <%= if @current_user do %>
