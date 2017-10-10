@@ -9,21 +9,21 @@
                     </div>
                     <div class="col-md-4">
                         <%= if @current_user && @current_user.id == @user.id do %>
-                                <%= button("Edit", to: user_path(@conn, :edit, @user),
-                                    method: :get,
-                                    class: "btn btn-outline-primary m-1") %>
+                            <%= button("Edit", to: user_path(@conn, :edit, @user),
+                                method: :get,
+                                class: "btn btn-outline-primary m-1") %>
                         <% end %>
                         <%= if @current_user && @current_user.id != @user.id && !@following do %>
-                                <%= button("Follow", to: follow_path(@conn, :follow,
-                                    %{user_id: @current_user.id, follow_id: @user.id}),
-                                    method: :post,
-                                    class: "btn btn-outline-success m-1") %>
+                            <%= button("Follow", to: follow_path(@conn, :follow,
+                                %{user_id: @current_user.id, follow_id: @user.id}),
+                                method: :post,
+                                class: "btn btn-outline-success m-1") %>
                         <% end %>
                         <%= if @current_user && @current_user.id != @user.id && @following do %>
-                                <%= button("Unfollow", to: follow_path(@conn, :unfollow,
-                                    %{user_id: @current_user.id, follow_id: @user.id}),
-                                    method: :delete,
-                                    class: "btn btn-outline-danger m-1") %>
+                            <%= button("Unfollow", to: follow_path(@conn, :unfollow,
+                                %{user_id: @current_user.id, follow_id: @user.id}),
+                                method: :delete,
+                                class: "btn btn-outline-danger m-1") %>
                         <% end %>
                     </div>
                 </div>
@@ -36,6 +36,7 @@
         </div>
     </div>
     <div class="col-md-7">
+        <h2 class="m-2 mb-4 text-center">My Posts</h2>
         <%= if @posts == nil || @posts == [] do %>
             <h3>No posts found for this user</h3>
         <% end %>
@@ -43,8 +44,12 @@
             <!-- All posts from this user -->
             <div class="card m-2 mb-4 card-outline-primary">
                 <div class="card-header">
-                    <span class="card-title"><%= post.author.name %></span>
-                    <span class="card-subtitle">(@<%= post.author.handle %>)</span>
+                    <span class="card-title">
+                        <%= post.author.name %>
+                    </span>
+                    <span class="card-subtitle">
+                        (@<%= post.author.handle %>)
+                    </span>
                 </div>
                 <div class="card-block">
                     <div class="row m-2">
@@ -52,26 +57,44 @@
                             <%= post.content %>
                         </p>
                         <%= if @current_user && @current_user.id == @user.id do %>
-                                <%= button("Edit", to: post_path(@conn, :edit, post),
-                                    method: :get,
-                                    class: "btn btn-outline-primary m-1") %>
-                                <%= button("Delete", to: post_path(@conn, :delete, post),
-                                    data: [confirm: "Are you sure?"],
-                                    method: :delete,
-                                    class: "btn btn-danger m-1") %>
+                            <%= button("Edit", to: post_path(@conn, :edit, post),
+                                method: :get,
+                                class: "btn btn-outline-primary m-1") %>
+                            <%= button("Delete", to: post_path(@conn, :delete, post),
+                                data: [confirm: "Are you sure?"],
+                                method: :delete,
+                                class: "btn btn-outline-danger m-1") %>
                         <% end %>
                     </div>
                 </div>
-                <div class="card-footer text-muted">
-                    Posted: <%= post.updated_at %></br>
+                <div class="card-footer">
+                    <div class="float-left">
+                        <span class="btn btn-sm text-muted">
+                            Posted: <%= post.updated_at %>
+                        </span>
+                    </div>
+                    <%= if @current_user do %>
+                        <button class="btn btn-sm btn-primary like-add-button float-right"
+                                data-post-id="<%= post.id %>"
+                                data-user-id="<%= @current_user.id %>">
+                            Like
+                        </button>
+                    <% end %>
+                    <div class="post-likes float-right"
+                         data-path="<%= like_path(@conn, :index) %>"
+                         data-post-id="<%= post.id %>">
+                        &nbsp;
+                    </div>
                 </div>
             </div>
         <% end %>
     </div>
 </div>
 
-<span>
-    <%= button("Back", to: user_path(@conn, :index),
-        method: :get,
-        class: "btn btn-primary m-1") %>
-</span>
+<script id="likes-template" type="text/x-handlebars-template">
+    <div>
+        <span class="btn btn-sm mx-2">
+            Likes: {{data.length}}
+        </span>
+    </div>
+</script>

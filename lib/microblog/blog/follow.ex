@@ -1,7 +1,9 @@
 defmodule Microblog.Blog.Follow do
   use Ecto.Schema
   import Ecto.Changeset
+
   alias Microblog.Blog.Follow
+  alias Microblog.Accounts.User
 
   @primary_key false
   schema "follows" do

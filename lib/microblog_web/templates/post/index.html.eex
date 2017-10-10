@@ -29,7 +29,7 @@
         <% end %>
     </div>
     <div class="col-md-7">
-        <h2 class="m-2">All Posts</h2>
+        <h2 class="m-2 mb-4 text-center">All Posts</h2>
         <%= for post <- @posts do %>
             <div class="card m-2 mb-4 card-outline-primary">
                 <div class="card-header">
@@ -58,10 +58,33 @@
                         <% end %>
                     </div>
                 </div>
-                <div class="card-footer text-muted">
-                    Posted: <%= post.updated_at %></br>
+                <div class="card-footer">
+                    <div class="float-left">
+                        <span class="btn btn-sm text-muted">
+                            Posted: <%= post.updated_at %>
+                        </span>
+                    </div>
+                    <%= if @current_user do %>
+                        <button class="btn btn-sm btn-primary like-add-button float-right"
+                                data-post-id="<%= post.id %>"
+                                data-user-id="<%= @current_user.id %>">
+                            Like
+                        </button>
+                    <% end %>
+                    <div class="post-likes float-right"
+                         data-path="<%= like_path(@conn, :index) %>"
+                         data-post-id="<%= post.id %>">
+                        &nbsp;
+                    </div>
                 </div>
             </div>
         <% end %>
     </div>
 </div>
+
+<script id="likes-template" type="text/x-handlebars-template">
+  <div>
+    <span class="btn btn-sm mx-2">Likes: {{data.length}}</span>
+  </div>
+</script>
+
