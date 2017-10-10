@@ -2,7 +2,7 @@
 
 export REL_PATH="_build/prod/rel/microblog/releases/0.0.1"
 
-echo "Deploying App to Basset"
+echo "Deploying App"
 
 mix deps.get
 (cd assets && npm install)
@@ -10,8 +10,10 @@ mix deps.get
 mix phx.digest
 mix release --env=prod
 
-scp ${REL_PATH}/microblog.tar.gz microblog@davidjreed.net:/home/microblog/microblog.tar.gz
-ssh microblog@davidjreed.net -t "tar -xzvf microblog.tar.gz"
-ssh microblog@davidjreed.net -t "export PORT=4000"
-ssh microblog@davidjreed.net -t "./bin/microblog stop"
-ssh microblog@davidjreed.net -t "PORT=4000 ./bin/microblog start"
+cp ${REL_PATH}/microblog.tar.gz ../microblog/microblog.tar.gz
+
+cd ../microblog/
+
+tar -xzvf microblog.tar.gz
+./bin/microblog stop
+PORT=4000 ./bin/microblog start
