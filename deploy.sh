@@ -15,4 +15,5 @@ scp ${REL_PATH}/microblog.tar.gz microblog@davidjreed.net:/home/microblog/microb
 ssh microblog@davidjreed.net -t "tar -xzvf microblog.tar.gz"
 ssh microblog@davidjreed.net -t "export PORT=4000"
 ssh microblog@davidjreed.net -t "./bin/microblog stop"
+ssh microblog@davidjreed.net -t "./bin/microblog migrate"
 ssh microblog@davidjreed.net -t "PORT=4000 ./bin/microblog start"
