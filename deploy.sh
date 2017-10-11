@@ -5,8 +5,8 @@ export REL_PATH="_build/prod/rel/microblog/releases/0.0.1"
 echo "Deploying App"
 
 mix deps.get
-(cd assets && npm install)
-(cd assets && ./node_modules/brunch/bin/brunch b -p)
+(cd assets && sudo npm install)
+(cd assets && sudo ./node_modules/brunch/bin/brunch b -p)
 mix phx.digest
 mix release --env=prod
 

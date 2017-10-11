@@ -69,6 +69,9 @@ defmodule Microblog.Response do
     Repo.one(query)
   end
 
+  def user_liked_post?(u_id, p_id) do
+    find_like(u_id, p_id) != nil
+  end
 
   @doc """
   Returns all Users who have liked this post

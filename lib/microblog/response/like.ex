@@ -4,7 +4,7 @@ defmodule Microblog.Response.Like do
 
   alias Microblog.Response.Like
   alias Microblog.Blog.Post
-  alias Microblog.Accoutns.User
+  alias Microblog.Accounts.User
 
   @primary_key false
   schema "likes" do
