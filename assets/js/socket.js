@@ -53,8 +53,79 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 socket.connect()
 
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let postInput         = document.querySelector("#post-form")
+let allPosts          = document.querySelector("#all-posts")
+let currentUserName   = document.querySelector("#current-user-name")
+let currentUserHandle = document.querySelector("#current-user-handle")
+let postContent       = document.querySelector("#post-content")
+
+postInput.addEventListener("submit", function(e) {
+    channel.push("add_post", {
+        name: currentUserName.textContent,
+        handle: currentUserHandle.textContent,
+        content: postContent.value
+    })
+});
+
+let channel = socket.channel("updates:all", {})
+
+channel.on("add_post", payload => {
+    console.log(`new post: ${payload}`)
+
+    let card = document.createElement("div")
+    card.setAttribute("class", "card m-2 mb-4 card-outline-primary")
+
+    // Card header
+    let cardHeader = document.createElement("div")
+    cardHeader.setAttribute("class", "card-header")
+
+    let cardTitle = document.createElement("span")
+    cardTitle.setAttribute("class", "card-title")
+    cardTitle.innerHTML = `${payload.name}`
+
+    let cardSubtitle = document.createElement("span")
+    cardSubtitle.setAttribute("class", "card-subtitle")
+    cardSubtitle.innerHTML = `(${payload.handle})`
+
+    cardHeader.appendChild(cardTitle)
+    cardHeader.appendChild(cardSubtitle)
+
+    // Card body
+    let cardBlock = document.createElement("div")
+    cardBlock.setAttribute("class", "card-block")
+
+    let cardBlockRow = document.createElement("div")
+    cardBlockRow.setAttribute("class", "row m-2")
+
+    let cardContent = document.createElement("p")
+    cardContent.setAttribute("class", "card-text col-md-9 my-2")
+    cardContent.innerHTML = `${payload.content}`
+
+    cardBlockRow.appendChild(cardContent)
+    cardBlock.appendChild(cardBlockRow)
+
+    // Card footer
+    let cardFooter = document.createElement("div")
+    cardFooter.setAttribute("class", "card-footer")
+
+    let footerLeft = document.createElement("div")
+    footerLeft.setAttribute("class", "float-left")
+
+    let cardTime = document.createElement("span")
+    cardTime.setAttribute("class", "btn btn-sm text-muted")
+    cardTime.innerHTML = `Posted: now`
+
+    footerLeft.appendChild(cardTime)
+    cardFooter.appendChild(footerLeft)
+
+    // Build the card
+    card.appendChild(cardHeader)
+    card.appendChild(cardBlock)
+    card.appendChild(cardFooter)
+
+    allPosts.prepend(card)
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })

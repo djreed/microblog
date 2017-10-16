@@ -1,13 +1,18 @@
 <div class="row my-2">
     <div class="col-md-4">
         <%= if @current_user != nil do %> <!-- Profile preview -->
-
             <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4 class="card-title mb-2"><%= @current_user.name %></h4>
-                            <h5 class="card-subtitle">@<%= @current_user.handle %></h5>
+                            <h4 id="current-user-name"
+                                class="card-title mb-2">
+                                <%= @current_user.name %>
+                            </h4>
+                            <h5 id="current-user-handle"
+                                class="card-subtitle">
+                                @<%= @current_user.handle %>
+                            </h5>
                         </div>
                         <div class="col-md-4">
                             <%= if @current_user do %>
@@ -28,7 +33,10 @@
             </div>
         <% end %>
     </div>
-    <div class="col-md-7">
+    <div id="post-form">
+    </div>
+    <div id="all-posts"
+         class="col-md-7">
         <h2 class="m-2 mb-4 text-center">All Posts</h2>
         <%= for post <- @posts do %>
             <div class="card m-2 mb-4 card-outline-primary">
@@ -83,8 +91,8 @@
 </div>
 
 <script id="likes-template" type="text/x-handlebars-template">
-  <div>
-    <span class="btn btn-sm mx-2">Likes: {{data.length}}</span>
-  </div>
+    <div>
+        <span class="btn btn-sm mx-2">Likes: {{data.length}}</span>
+    </div>
 </script>
 
