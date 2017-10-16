@@ -37,11 +37,9 @@ Likes are a user-to-post join table, and are meant to signify that a user has li
 
 The design is SUPPOSED to be such that liking a post increases that post's like count, and swaps the "like" button to "dislike" when you are logged in.
 
-However, based on my website design and layout, I was unable to attach a unique like counter to each post independently (I got rid of the "show" page, which was my downfall at this point in the homework).
+However, based on my website design and layout, I was unable to attach a unique like counter to each post independently (I got rid of the "show" page, which was my downfall at this point in the homework), and I was unable to implement a "dislike" as such.
 
-Likewise, when deployed, my javascript didn't deploy alongside my changes, and so the "like" button works locally, but not on the deployed app.
-
-With all this, I have the right infrastructure for "likes" to be implemented, but it would require a refactoring of how I'm showing posts, as well as fixing js on the deployed side.
+With all this, I have the right infrastructure for "likes" to be implemented, but it would require a refactoring of how I'm showing posts.
 
 # Deploy
 
