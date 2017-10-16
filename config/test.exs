@@ -3,7 +3,7 @@ use Mix.Config
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :microblog, MicroblogWeb.Endpoint,
-  http: [port: 4001],
+  http: [port: 4000],
   server: false
 
 # Print only warnings and errors during test
@@ -15,5 +15,5 @@ config :microblog, Microblog.Repo,
   username: "microblog",
   password: "huehuehue",
   database: "microblog_test",
-  hostname: "localhost",
+  hostname: "127.0.0.1",
   pool: Ecto.Adapters.SQL.Sandbox
