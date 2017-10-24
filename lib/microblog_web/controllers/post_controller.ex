@@ -1,6 +1,7 @@
 defmodule MicroblogWeb.PostController do
   use MicroblogWeb, :controller
 
+  alias Microblog.Accounts
   alias Microblog.Blog
   alias Microblog.Blog.Post
 
@@ -11,15 +12,15 @@ defmodule MicroblogWeb.PostController do
   end
 
   def new(conn, _params) do
-    cur_user = fetch_session(conn, :current_user)
-    if !cur_user do
+    cuid = get_session(conn, :user_id)
+    if !cuid do
       conn
       |> put_flash(:error, "You must log in to create a post")
       |> redirect(to: user_path(conn, :index))
+    else
+      changeset = Blog.change_post(%Post{})
+      render(conn, "new.html", changeset: changeset)
     end
-
-    changeset = Blog.change_post(%Post{})
-    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"post" => post_params}) do
@@ -47,44 +48,46 @@ defmodule MicroblogWeb.PostController do
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
-    cur_user = fetch_session(conn, :current_user)
-    if !cur_user do
+    cuid = get_session(conn, :user_id)
+    if !cuid do
       conn
       |> put_flash(:error, "You must log in to update a post")
       |> redirect(to: user_path(conn, :index))
-    end
+    else
+      post = Blog.get_post!(id)
 
-    post = Blog.get_post!(id)
-
-    case Blog.update_post(post, post_params) do
-      {:ok, _post} ->
-        conn
+      case Blog.update_post(post, post_params) do
+        {:ok, _post} ->
+          conn
         |> put_flash(:info, "Post updated successfully.")
         |> redirect(to: post_path(conn, :index))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", post: post, changeset: changeset)
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "edit.html", post: post, changeset: changeset)
+      end
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    cur_user = fetch_session(conn, :current_user)
-    if !cur_user do
+    cuid = get_session(conn, :user_id)
+    if !cuid do
       conn
-      |> put_flash(:error, "You must log in to delete a post")
+      |> put_flash(:error, "You must log in to update a post")
       |> redirect(to: user_path(conn, :index))
-    end
-
-    post = Blog.get_post!(id)
-
-    if post.user_id == id do
-      {:ok, _post} = Blog.delete_post(post)
-      conn
-      |> put_flash(:info, "Post deleted successfully.")
-      |> redirect(to: post_path(conn, :index))
     else
-      conn
-      |> put_flash(:error, "Cannot delete another user's post")
-      |> redirect(to: user_path(conn, :index))
+      post = Blog.get_post!(id)
+
+      cur_user = Accounts.get_user!(cuid)
+
+      if cur_user.is_admin? || post.user_id == cur_user.id do
+        {:ok, _post} = Blog.delete_post(post)
+        conn
+        |> put_flash(:info, "Post deleted successfully.")
+        |> redirect(to: post_path(conn, :index))
+      else
+        conn
+        |> put_flash(:error, "Cannot delete another user's post.")
+        |> redirect(to: user_path(conn, :index))
+      end
     end
   end
 end

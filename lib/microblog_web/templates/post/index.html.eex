@@ -49,12 +49,12 @@
                         <p class="card-text col-md-9 my-2">
                             <%= post.content %>
                         </p>
-                        <%= if @current_user && @current_user.id == post.author.id do %>
-                            <%= button("Edit", to: user_path(@conn, :edit, post),
+                        <%= if @current_user && (@current_user.id == post.author.id || @current_user.is_admin?) do %>
+                            <%= button("Edit", to: post_path(@conn, :edit, post),
                                 method: :get,
                                 class: "btn btn-outline-primary m-1") %>
 
-                            <%= button("Delete", to: user_path(@conn, :delete, post),
+                            <%= button("Delete", to: post_path(@conn, :delete, post),
                                 data: [confirm: "Are you sure?"],
                                 method: :delete,
                                 class: "btn btn-outline-danger m-1") %>
