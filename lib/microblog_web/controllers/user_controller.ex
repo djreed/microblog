@@ -73,7 +73,8 @@ defmodule MicroblogWeb.UserController do
       |> put_flash(:error, "You must log in to delete a user")
       |> redirect(to: user_path(conn, :index))
     else
-      if Accounts.get_user(cuid).is_admin? do
+      cur_user = Accounts.get_user!(cuid)
+      if !cur_user.is_admin? do
         conn
         |> put_flash(:error, "You must log in as an admin to delete a user")
         |> redirect(to: user_path(conn, :index))
