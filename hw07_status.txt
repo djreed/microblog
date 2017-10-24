@@ -7,49 +7,64 @@ Please answer the following questions and submit the filled-in file to Bottlenos
 
 1. What's your name?
 
-David J. Reed
+   David J. Reed
 
 
 2. What's the link to your Github repo's releases page?
 
+   https://github.com/djreed/microblog/releases/tag/v0.2
+
 
 3. What's the link to your deployed Microblog app?
 
-microblog.davidjreed.net
+   microblog.davidjreed.net
 
 
 4. Did you successfully deploy? If not, what doesn't work?
 
-Yes
+   Yes
 
 
 5. Did you successfully implement passwords securely? If not, what doesn't work?
 
-Yes
+   Yes
 
 
 6. Did you successfully implement admin users? What paths are admin-only? What paths
    are accessible to all users.
 
-Yes -- Admin-only paths are /user/delete and (for non-self users), /posts/[new,delete]
+   Yes -- Admin-only path is /user/delete, and admin only if you're
+   not the owner user for /post/edit and /post/delete
 
 
 7. What changes did you make to clean up your application layout and navigation?
 
-Cleaned up some of the buttons depending on admin-ness of users
+   Cleaned up some of the buttons depending on admin-ness of users,
+gradually have been altering text positioning
 
 
 8. Did you complete any catch up tasks? Which ones? Is there anything still not working
    about those features?
 
+   No catch-up tasks: only feature semi-broken is likes, where there
+   is no unlike button, and all likes for all posts on the page are
+   shown for each post.
+
 
 9. Did you complete any additional tasks? Which ones? For each, describe how it should
    work and how that differs from your deployed functionality.
+
+   Additional, I added HTTPS redirect through LetsEncrypt, removed
+   /post/showresources, admin users, and cleaned up the HTML for
+   buttons a bit more.
 
 
 A. Did you complete any bonus addtional goals for extra credit? For each, describe how
    it should work and how that differs from your deployed functionality.
 
+   Not beyond the additional tasks
+
 
 B. Is there any other useful information that you want to provide for grading?
 
+   Not particularly
