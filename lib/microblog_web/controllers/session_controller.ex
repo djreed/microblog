@@ -27,7 +27,4 @@ defmodule MicroblogWeb.SessionController do
     |> put_flash(:info, "Logged out.")
     |> redirect(to: post_path(conn, :index))
   end
-
-  def redirect_non_admin(conn, _args) do
-  end
 end

@@ -47,7 +47,7 @@ defmodule Microblog.Accounts.User do
 
   # Password validation
   # From Comeonin docs
-  def validate_password(changeset, field, options \ []) do
+  def validate_password(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, password ->
       case valid_password?(password) do
         {:ok, _} -> []

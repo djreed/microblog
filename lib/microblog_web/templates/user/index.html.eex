@@ -20,12 +20,14 @@
                                 method: :get,
                                 class: "btn btn-outline-primary") %>
                         </span>
-                        <span class="m-1">
-                            <%= button("Delete", to: user_path(@conn, :delete, user),
-                                data: [confirm: "Are you sure?"],
-                                method: :delete,
-                                class: "btn btn-danger") %>
-                        </span>
+                        <%= if @current_user && @current_user.is_admin? do %>
+                            <span class="m-1">
+                                <%= button("Delete", to: user_path(@conn, :delete, user),
+                                    data: [confirm: "Are you sure?"],
+                                    method: :delete,
+                                    class: "btn btn-danger") %>
+                            </span>
+                        <% end %>
                     </div>
                 </div>
             </div>
