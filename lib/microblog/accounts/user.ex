@@ -57,7 +57,7 @@ defmodule Microblog.Accounts.User do
   end
 
   def put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, Comeonin.Argon2.add_hash(password))
+    change(changeset, Comeonin.Pbkdf2.add_hash(password))
   end
   def put_pass_hash(changeset), do: changeset
 
@@ -101,7 +101,7 @@ defmodule Microblog.Accounts.User do
 
       user = Accounts.get_user_by_email(login)
       if user do
-        case Comeonin.Argon2.check_pass(user, password) do
+        case Comeonin.Pbkdf2.check_pass(user, password) do
           {:ok, user} -> user
           _else       -> nil
         end
@@ -109,7 +109,7 @@ defmodule Microblog.Accounts.User do
 
       user = Accounts.get_user_by_handle(login)
 
-      case Comeonin.Argon2.check_pass(user, password) do
+      case Comeonin.Pbkdf2.check_pass(user, password) do
         {:ok, user} -> user
         _else       -> nil
       end

@@ -42,7 +42,7 @@ defmodule Microblog.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
-      {:argon2_elixir, "~> 1.2"},
+      {:pbkdf2_elixir, "~> 0.12"},
       {:distillery, "~> 1.4"}
     ]
   end
