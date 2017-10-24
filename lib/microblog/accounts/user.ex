@@ -47,7 +47,7 @@ defmodule Microblog.Accounts.User do
 
   # Password validation
   # From Comeonin docs
-  def validate_password(changeset, field, options \\ []) do
+  def validate_password(changeset, field, options \ []) do
     validate_change(changeset, field, fn _, password ->
       case valid_password?(password) do
         {:ok, _} -> []
@@ -56,15 +56,16 @@ defmodule Microblog.Accounts.User do
     end)
   end
 
-  def put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+  defp put_pass_hash(%Ecto.Changeset{valid?: true, changes:
+                                     %{password: password}} = changeset) do
     change(changeset, Comeonin.Pbkdf2.add_hash(password))
   end
-  def put_pass_hash(changeset), do: changeset
+  defp put_pass_hash(changeset), do: changeset
 
-  def valid_password?(password) when byte_size(password) > 7 do
+  defp valid_password?(password) when byte_size(password) > 7 do
     {:ok, password}
   end
-  def valid_password?(_), do: {:error, "The password is too short"}
+  defp valid_password?(_), do: {:error, "The password is too short"}
 
   def update_tries(throttle, prev) do
     if throttle do
