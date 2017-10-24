@@ -67,10 +67,17 @@ defmodule MicroblogWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    {:ok, _user} = Accounts.delete_user(user)
+
+    if user.is_admin? do
+      {:ok, _user} = Accounts.delete_user(user)
+
+      conn
+      |> put_flash(:info, "User deleted successfully.")
+      |> redirect(to: user_path(conn, :index))
+    end
 
     conn
-    |> put_flash(:info, "User deleted successfully.")
+    |> put_flash(:error, "You must be an administrator to delete users")
     |> redirect(to: user_path(conn, :index))
   end
 end

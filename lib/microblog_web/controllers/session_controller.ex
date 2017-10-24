@@ -3,11 +3,10 @@
 defmodule MicroblogWeb.SessionController do
   use MicroblogWeb, :controller
 
-  alias Microblog.Accounts
+  alias Microblog.Accounts.User
 
-  def login(conn, %{"login" => login}) do
-
-    user = Accounts.get_user_by_email(login)
+  def login(conn, %{"login" => login, "password" => password}) do
+    user = User.get_and_auth_user(login, password)
 
     if user do
       conn
@@ -15,19 +14,10 @@ defmodule MicroblogWeb.SessionController do
       |> put_flash(:info, "Logged in as #{user.handle}")
       |> redirect(to: user_path(conn, :show, user))
     else
-      user = Accounts.get_user_by_handle(login)
-
-      if user do
-        conn
-        |> put_session(:user_id, user.id)
-        |> put_flash(:info, "Logged in as #{user.handle}")
-        |> redirect(to: user_path(conn, :show, user))
-      else
-        conn
-        |> put_session(:user_id, nil)
-        |> put_flash(:error, "No such user")
-        |> redirect(to: user_path(conn, :index))
-      end
+      conn
+      |> put_session(:user_id, nil)
+      |> put_flash(:error, "No such login/password")
+      |> redirect(to: user_path(conn, :index))
     end
   end
 
@@ -36,5 +26,8 @@ defmodule MicroblogWeb.SessionController do
     |> put_session(:user_id, nil)
     |> put_flash(:info, "Logged out.")
     |> redirect(to: post_path(conn, :index))
+  end
+
+  def redirect_non_admin(conn, _args) do
   end
 end

@@ -55,6 +55,8 @@
                     [as: "user", class: " form-inline mx-2"], fn f -> %>
                     <input type="text" placeholder="email or handle"
                            class="form-control" name="login">
+                    <input type="password" placeholder="password"
+                           class="form-control" name="password">
                     <input type="submit" value="Log in" class="btn btn-primary mx-2">
                 <% end %>
         <% end %>
