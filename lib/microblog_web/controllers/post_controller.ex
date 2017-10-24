@@ -3,7 +3,6 @@ defmodule MicroblogWeb.PostController do
 
   alias Microblog.Blog
   alias Microblog.Blog.Post
-  alias Microblog.Response
 
   def index(conn, _params) do
       posts = Blog.list_posts()
