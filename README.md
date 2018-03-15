@@ -1,10 +1,6 @@
 # Microblog
 
-Git repo: [github.com/djreed/cs4550/microblog](https://github.com/djreed/cs4550/tree/master/microblog)
-
-Deployed app: [microblog](http://microblog.davidjreed.net/)
-
-# Models
+## Models
 - Users
   - Email
   - Name
@@ -17,7 +13,7 @@ Deployed app: [microblog](http://microblog.davidjreed.net/)
   - Content
   - User who posted/wrote
 
-# Design
+## Design
 
 When logging in, enter a valid email or handle for one of the registered users to sign in as that user. When signed in, you can make, edit, and delete posts that you, as the user, have made. New users can be added through the "Users" button on th navbar, where you enter a unique email and handle, and optional name and description. Editting a user allows you to modify all of a user's fields, and is its own page.
 
@@ -31,7 +27,7 @@ Follows have their own controller and context, but the only routes available are
 
 I feel that, for an initial design, each feature is fleshed out quite well for this micro-blog, and the only things I could add are some convenience links here and there (get all followed users from a user's 'show' page, search functionality to search for users and posts by some keywords, removing the 'edit' and 'delete' from showing all users if that user is not you, etc.).
 
-# Likes
+## Likes
 
 Likes are a user-to-post join table, and are meant to signify that a user has liked a post.
 
@@ -41,7 +37,7 @@ However, based on my website design and layout, I was unable to attach a unique 
 
 With all this, I have the right infrastructure for "likes" to be implemented, but it would require a refactoring of how I'm showing posts.
 
-# Deploy
+## Deploy
 
 The `deploy.sh` file is meant to be run on the local machine, and will start the deployed app on the remote server. In order, the app is compiled, sent as a gzipped tarball to the remote server, unpacked, and then rebooted through the new compiled binary.
 
